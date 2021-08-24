@@ -356,7 +356,7 @@ threadmain(int argc, char *argv[])
 				view = addpt(center, Pt(vx, vy));
 				redraw();
 			}
-			if(m.buttons & 4){
+			if(m.buttons & 1){
 				mo = subpt(m.xy, mo);
 				view = addpt(view, mo);
 				vx = view.x - center.x;
