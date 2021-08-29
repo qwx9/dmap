@@ -40,14 +40,6 @@ int nnodes;
 
 static float bbox[4];
 
-void *
-erealloc(void *p, ulong n)
-{
-	if((p = realloc(p, n)) == nil)
-		sysfatal("realloc: %r");
-	return p;
-}
-
 int
 subsect(Seg *s)
 {
@@ -69,30 +61,6 @@ mknodes(Bsp *b, short box[4])
 	}
 	/* ... */
 	return 0;
-}
-
-static int
-fsign(float f)
-{
-	return f < 0. ? -1 : f > 0.;
-}
-
-static float
-fround(float x)
-{
-	if(x > 0.){
-		if(x - (int)x < 0.1)
-			return (int)x;
-		else if(x - (int)x > 0.9)
-			return (int)x + 1;
-		else
-			return x;
-	}
-	if((int)x - x < 0.1)
-		return (int)x;
-	else if((int)x - x > 0.9)
-		return (int)x - 1;
-	return x;
 }
 
 static void
@@ -220,8 +188,8 @@ static void
 addnode(Seg **ss, int *n, Seg *s, Seg *p)
 {
 	if(s - *ss >= *n){
+		*ss = erealloc(*ss, (*n+64) * sizeof **ss, *n * sizeof **ss);
 		*n += 64;
-		*ss = erealloc(*ss, *n * sizeof **ss);
 	}
 	*s = *p;
 }

@@ -32,17 +32,6 @@ static Point center, view;
 static Keyboardctl *kc;
 static Mousectl *mc;
 
-void *
-emalloc(ulong n)
-{
-	void *p;
-
-	if((p = mallocz(n, 1)) == nil)
-		sysfatal("mallocz: %r");
-	setmalloctag(p, getcallerpc(&n));
-	return p;
-}
-
 Image *
 eallocimage(Rectangle r, ulong chan, int repl, ulong c)
 {

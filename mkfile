@@ -1,12 +1,16 @@
 </$objtype/mkfile
 
-BIN=$home/bin/$objtype
-TARG=dmap
-OFILES=\
-	bsp.$O\
-	dmap.$O\
-	fs.$O\
+BIN=/$objtype/bin/games
+TARG=\
+	dbsp\
+	dmap\
 
 HFILES=dat.h fns.h
 
-</sys/src/cmd/mkone
+</sys/src/cmd/mkmany
+
+$O.dbsp: dbsp.$O bsp.$O fs.$O util.$O
+	$LD -o $target $prereq
+
+$O.dmap: dmap.$O fs.$O util.$O
+	$LD -o $target $prereq

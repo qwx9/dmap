@@ -26,20 +26,6 @@ int nthings;
 
 #define	PBIT32(p,v)	(p)[0]=(v);(p)[1]=(v)>>8;(p)[2]=(v)>>16;(p)[3]=(v)>>24
 
-static vlong
-filelen(int fd)
-{
-	vlong l;
-	Dir *d;
-
-	d = dirfstat(fd);
-	if(d == nil)
-		sysfatal("filelen: %r");
-	l = d->length;
-	free(d);
-	return l;
-}
-
 static void
 loadthings(char *f)
 {
